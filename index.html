@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-KyZXEAg3QhqLMpG8r+vc+k2w01t9pWc7l+ks5nVdVBz5ONXCF2tvF5i5fn5jBKb0" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="css.css">
+    <script src="js.js"> </script>
+    <title>Lista de Tarefas</title>
+</head>
+<body data-bs-theme="dark">
+
+    <div class="container">
+        <div class="todo-list mt-5">
+            <h1 class="text-center">Lista de Tarefas e Títulos</h1>
+    
+            <!-- Modal -->
+           <div class="modal fade" id="addTaskModal" tabindex="-1" role="dialog" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addTaskModalLabel">Adicionar Tarefa</h5>
+            
+            </div>
+            <div class="modal-body">
+
+                 <select id="existingTitleSelect" class="form-control mb-3">
+                    <option value="">Selecionar título existente</option>
+                </select>
+
+                <input type="text" id="titleInput" class="form-control mb-3" placeholder="Título">
+                <input type="text" id="taskInput" class="form-control" placeholder="Tarefa">
+
+               
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-outline-success" onclick="addTaskToContainer()">Salvar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="taskContainer">
+    <!-- Aqui serão adicionados os títulos e suas respectivas tarefas -->
+</div>
+
+
+
+    <div class="position-fixed bottom-0 end-0 p-3" id="floating-buttons">
+
+        <button data-toggle="modal" data-target="#addTaskModal" class="btn btn-primary mb-2">
+            <i class="fa fa-plus"></i>
+        </button>
+        
+        <a href="https://github.com/geovaniorsoli/Timer-cubomagico" target="_blank" class="d-block mb-2">
+            <button class="btn btn-outline-secondary">
+                <i class="fab fa-github"></i>
+            </button>
+        </a>
+        <button class="btn btn-outline-secondary d-block" onclick="toggleTheme()">
+            <i class="fas fa-adjust"></i>
+        </button>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+
+</body>
+</html>
