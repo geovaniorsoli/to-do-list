@@ -11,3 +11,13 @@
     margin-left: 4px;
 }
 
+.botaotitulo{
+    display: flex;
+    justify-content: space-between
+}
+
+.task-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* ajuste o espaço entre as tarefas conforme necessário */
+}

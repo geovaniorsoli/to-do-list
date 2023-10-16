@@ -16,18 +16,19 @@
 <body data-bs-theme="dark">
 
     <div class="container">
+
+    
         <div class="todo-list mt-5">
             <h1 class="text-center">To-do</h1>
                  
               
             <!-- Parte de adição de tarefas -->
             <div class="modal fade" id="taskModal" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
+                <div class="modal-dialog modal-dialog-centered" role="document"> <!-- Classe adicionada aqui -->
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title" id="taskModalLabel">Nova Tarefa</h5>
                             <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fas fa-times"></i></button>
-                           
                         </div>
                         <div class="modal-body">
                             <!-- Formulário ajustado -->
