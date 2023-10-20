@@ -16,12 +16,12 @@ function attachEventListeners() {
     taskContainer.addEventListener('click', function(event) {
         const button = event.target.closest('button');
         if (button) {
-            const taskDiv = button.closest('.taskDiv');
+            const container = button.closest('.container-task-hr'); 
             if (button.classList.contains('btn-remove-task')) {
-                taskDiv.remove();
+                container.remove();
                 saveTasksAndTitles();
             } else if (button.classList.contains('btn-mark-task')) {
-                taskDiv.querySelector('.taskContent').style.textDecoration = 'line-through';
+                container.querySelector('.taskContent').style.textDecoration = 'line-through';
                 button.disabled = true;
                 saveTasksAndTitles();
             }
@@ -56,6 +56,7 @@ function createTaskList(normalizedTitleValue) {
     taskListDiv.className = 'task-list-container';
     taskListDiv.id = `tasks-for-title-${normalizedTitleValue}`;
     return taskListDiv;
+
 }
 
 function createTitleDiv(titleValue, normalizedTitleValue) {
@@ -101,6 +102,7 @@ function addTask() {
     const selectedTitle = titleSelect.value;
     const normalizedTitleValue = selectedTitle.replace(/\s+/g, '-');
 
+    
     if (taskInput.value.trim()) {
         const taskListDiv = document.getElementById(`tasks-for-title-${normalizedTitleValue}`);
         if (taskListDiv) {
@@ -112,19 +114,19 @@ function addTask() {
     }
 }
 function createTaskDiv(taskContentValue) {
-    // Criando o contêiner principal para a tarefa
+    
+    const hr = document.createElement('hr');
     const taskDiv = document.createElement('div');
-    taskDiv.className = 'd-flex align-items-center justify-content-between taskDiv'; // Usando flexbox para alinhamento
+    taskDiv.className = 'd-flex align-items-center justify-content-between taskDiv';
 
-    // Criando o div do conteúdo da tarefa
     const taskContent = document.createElement('div');
-    taskContent.className = 'taskContent flex-grow-1'; // Permite que o conteúdo cresça para ocupar o espaço disponível
+    taskContent.className = 'taskContent flex-grow-1'; 
     taskContent.textContent = taskContentValue;
     taskDiv.appendChild(taskContent);
 
     // Criando o botão para marcar a tarefa como concluída
     const markAsDoneButton = document.createElement('button');
-    markAsDoneButton.className = 'btn btn-outline-success mr-2 botao btn-mark-task'; // 'mr-2' para margem à direita
+    markAsDoneButton.className = 'btn btn-outline-success mr-2 botao btn-mark-task'; 
     markAsDoneButton.innerHTML = '<i class="fas fa-check-circle"></i>';
     taskDiv.appendChild(markAsDoneButton);
 
@@ -134,43 +136,61 @@ function createTaskDiv(taskContentValue) {
     removeButton.innerHTML = '<i class="fas fa-trash"></i>';
     taskDiv.appendChild(removeButton);
 
-    // Criando a linha horizontal para separação visual
-    const hr = document.createElement('hr');
-    
-    // Criando um contêiner para agrupar o taskDiv e o <hr>
     const container = document.createElement('div');
+    container.className = 'container-task-hr'; 
     container.appendChild(taskDiv);
-    container.appendChild(hr);
+    container.appendChild(hr); 
 
-    return container; // retornando o contêiner que inclui tanto o taskDiv quanto o <hr>
+
+    return container; 
 }
 
 
 function saveTasksAndTitles() {
     const tasksContainer = document.getElementById('taskContainer');
     localStorage.setItem('tasksAndTitles', tasksContainer.innerHTML);
+
+    const titleSelect = document.getElementById('titleSelect');
+    const titles = [];
+    for (let i = 0; i < titleSelect.options.length; i++) {
+        titles.push(titleSelect.options[i].value);
+    }
+    localStorage.setItem('titles', JSON.stringify(titles));
 }
+
 
 function loadTasksAndTitles() {
     const tasksAndTitles = localStorage.getItem('tasksAndTitles');
     if (tasksAndTitles) {
         const tasksContainer = document.getElementById('taskContainer');
         tasksContainer.innerHTML = tasksAndTitles;
-        attachEventListeners();  // Reanexar os event listeners após carregar o conteúdo
+    }
+
+    const titles = JSON.parse(localStorage.getItem('titles'));
+    if (titles) {
+        const titleSelect = document.getElementById('titleSelect');
+        titleSelect.innerHTML = ''; // Limpar as opções existentes
+        titles.forEach(title => {
+            const option = document.createElement('option');
+            option.value = title;
+            option.textContent = title;
+            titleSelect.appendChild(option);
+        });
     }
 }
 
 function clearAllData() {
-    localStorage.clear();
+    localStorage.removeItem('tasksAndTitles');
+    localStorage.removeItem('titles');
     document.getElementById('taskContainer').innerHTML = '';
-    document.getElementById('titleSelect').innerHTML = ''; // Limpar as opções do select, se necessário
+    document.getElementById('titleSelect').innerHTML = '';
 }
 
 
+
 function bootstrapConfirm(type, message, callback) {
-    // Cria o elemento modal
     const modal = document.createElement('div');
-    modal.className = 'modal fade'; // Adiciona a classe 'fade' para animação de desvanecimento
+    modal.className = 'modal fade'; 
     modal.tabIndex = -1;
     modal.setAttribute('aria-hidden', 'true');
     modal.innerHTML = `
